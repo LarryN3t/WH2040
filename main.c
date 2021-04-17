@@ -68,7 +68,7 @@ int main()
 	
 	    printf("Hum Out: %d \%%\n",(unsigned int)(buf[10]));
 	    printf("Hum In: %d \%%\n",(unsigned int)(buf[11]));
-	    printf("Wind speed: %0.1f \n",(float)((unsigned int)(buf[15])*256 +(unsigned int)(buf[16]))/10);
+	    printf("Wind speed: %0.1f m/s\n",(float)((unsigned int)(buf[15])*256 +(unsigned int)(buf[16]))/10);
 	    printf("Pressure: %d hPa\n",(unsigned int)(buf[12])*256 +(unsigned int)(buf[13]));
 	    printf("Rain: %0.1f mm/h\n",(float)(buf[14])*0.3);
 
