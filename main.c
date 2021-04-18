@@ -72,6 +72,77 @@ int main()
 	    printf("Pressure: %d hPa\n",(unsigned int)(buf[12])*256 +(unsigned int)(buf[13]));
 	    printf("Rain: %0.1f mm/h\n",(float)(buf[14])*0.3);
 
+	    // 6 byte after 16 [ 17 - 22 ]
+
+	    // Wind Direction Value
+	    unsigned int wd = (unsigned int) buf[17] / 16;
+	    char wdir[3];
+	    switch (wd)
+	    {
+		    case 0:
+		    sprintf(wdir,"E");
+		    break;   
+		    case 2:
+		    sprintf(wdir,"S");
+		    break;   
+		    case 4:
+		    sprintf(wdir,"W");
+		    break;   
+		    case 6:
+		    sprintf(wdir,"N");
+		    break;   
+		    case 10:
+		    sprintf(wdir,"NE");
+		    break;   
+		    case 8:
+		    sprintf(wdir,"SE");
+		    break;   
+		    case 14:
+		    sprintf(wdir,"NW");
+		    break;   
+		    case 12:
+		    sprintf(wdir,"SW");
+		    break;   
+	    }
+	    printf("Wind Direction: %s\n",wdir);
+	    // Forecast Meteo
+	    unsigned int T = (unsigned int) buf[17] & 15;
+	    char forecast[20];
+	    switch (T)
+	    {
+		    case 4:
+		    sprintf(forecast,"Sunny");
+	    	    printf("Forecast: %s\n",forecast);
+		    break;
+		    case 8:
+		    sprintf(forecast,"Sun/Cloud");
+	    	    printf("Forecast: %s\n",forecast);
+		    break;
+		    case 12:
+		    sprintf(forecast,"Cloud");
+	    	    printf("Forecast: %s\n",forecast);
+		    break;
+		    default:
+	    	    printf("Forecast: %d\n",T);
+		    break;
+	
+	    }
+	    // Year
+	    unsigned int Y = (unsigned int) buf[18] / 4 + 2018;
+	    // printf ("Year: %d\n",Y);
+	    // Mounth
+	    unsigned int M = ((unsigned int) buf[18] & 3) * 4 + (unsigned int) buf[19] / 64;
+	    //printf ("Mount: %d\n",M);
+            // Day 
+	    unsigned int D = ((unsigned int) buf[19] & 62) / 2;
+	    //printf ("Day: %d\n",D);
+	    // Hour
+	    unsigned int H = ((unsigned int) buf[19] & 1) * 8 + ((unsigned int) buf[20] / 16);
+	    //printf ("Hour: %d\n",H);
+	    // Minute
+	    unsigned int min = ((unsigned int) buf[20] & 15) * 4 + (unsigned int) buf[21] / 64;
+	    //printf ("Minute: %d\n",min);
+	    printf ("Date Time: %d/%d/%d %02d:%02d\n",D,M,Y,H,min);
 	    for(i=6;i<r;i++)
 	    {    
             	printf("%02X",(unsigned int)(buf[i]));
