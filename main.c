@@ -122,6 +122,10 @@ int main()
 		    sprintf(forecast,"Cloud");
 	    	    printf("Forecast: %s\n",forecast);
 		    break;
+		    case 0:
+		    sprintf(forecast,"Rain");
+	    	    printf("Forecast: %s\n",forecast);
+		    break;
 		    default:
 	    	    printf("Forecast: %d\n",T);
 		    break;
@@ -137,7 +141,7 @@ int main()
 	    unsigned int D = ((unsigned int) buf[19] & 62) / 2;
 	    //printf ("Day: %d\n",D);
 	    // Hour
-	    unsigned int H = ((unsigned int) buf[19] & 1) * 8 + ((unsigned int) buf[20] / 16);
+	    unsigned int H = ((unsigned int) buf[19] & 1) * 16 + ((unsigned int) buf[20] / 16);
 	    //printf ("Hour: %d\n",H);
 	    // Minute
 	    unsigned int min = ((unsigned int) buf[20] & 15) * 4 + (unsigned int) buf[21] / 64;
